@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+    <head>
+        <title>RC Car Controller</title>
+        <style>/*The Actuall Website it self*/
+html {
+    background-color: #4c4848;
+    transform: scale(1);
+}
+
+h1 {
+    margin-top: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 10em;
+    margin: .5rem;
+    padding: 0rem;
+}
+
+
+/*speed settings*/
+.wrapper {
+    display: flex;
+    background: #fff;
+    height: 100px;
+    width: 360px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    padding: 20px 15px;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+    margin: auto;
+    transform: scale(1.5);
+}
+.wrapper .option {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 10px;
+    border: 2px solid lightgrey;
+    transition: all 0.3s ease;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+#option-1:checked:checked ~ .option-1,
+#option-2:checked:checked ~ .option-2,
+#option-3:checked:checked ~ .option-3 {
+    border-color: #0069d9;
+    background: #0069d9;
+    transform: scale(0.9);
+}
+
+#option-1:checked:checked ~ .option-1 span,
+#option-2:checked:checked ~ .option-2 span,
+#option-3:checked:checked ~ .option-3 span {
+    color: #fff;
+}
+
+
+/* D-PAD */
+.dpad-container {
+    display:flex
+    height: 200px;
+    position: absolute;
+    width: 200px;
+    justify-content: center;
+}
+
+.dpad-backdrop {
+    background: #CFD8DC;
+    border-radius: 10px;
+    height: 200px;
+    margin: 0 auto;
+    position: relative;
+    width: 80px;
+}
+
+.dpad-backdrop::after {
+    background: #CFD8DC;
+    border-radius: 10px;
+    content: '';
+    display: block;
+    height: 80px;
+    left: -60px;
+    position: absolute;
+    top: 60px;
+    width: 200px;
+}
+
+.dpad {
+    background: #202020;
+    box-shadow: 0 1px 10px #37474F;
+    height: 60px;
+    position: absolute;
+    width: 60px;
+}
+
+.dpad-up {
+    border-radius: 5px 5px 0 0;
+    bottom: 130px;
+    left: 70px;
+}
+
+.dpad-right {
+    border-radius: 0 5px 5px 0;
+    bottom: 70px;
+    left: 130px;
+}
+
+.dpad-down {
+    border-radius: 0 0 5px 5px;
+    bottom: 10px;
+    left: 70px;
+}
+
+.dpad-left {
+    border-radius: 5px 0 0 5px;
+    bottom: 70px;
+    left: 10px;
+}
+
+.dpad-center {
+    border: #202020 1px solid;
+    border-radius: 1px;
+    bottom: 69px;
+    box-shadow: none;
+    left: 69px;
+}
+/* D-PAD arrows */
+.arrow-up {
+    border-bottom: 24px solid #455A64;
+    border-left: 24px solid transparent;
+    border-right: 24px solid transparent;
+    height: 0;
+    margin: 20px auto 0;
+    width: 0;
+}
+
+.arrow-up2 {
+    background: #455A64;
+    height: 12px;
+    margin: -2px auto 0;
+    width: 24px;
+}
+
+.arrow-right {
+    border-bottom: 24px solid transparent;
+    border-left: 24px solid #455A64;
+    border-top: 24px solid transparent;
+    height: 0;
+    left: 16px;
+    position: absolute;
+    top: 6px;
+    width: 0;
+}
+
+.arrow-right2 {
+    background: #455A64;
+    height: 24px;
+    margin: 18px 0 0 6px;
+    width: 12px;
+}
+
+.arrow-down {
+    border-left: 24px solid transparent;
+    border-right: 24px solid transparent;
+    border-top: 24px solid #455A64;
+    height: 0;
+    margin: 0 auto;
+    width: 0;
+}
+
+.arrow-down2 {
+    background: #455A64;
+    height: 12px;
+    margin: 6px auto -2px;
+    width: 24px;
+}
+
+.arrow-left {
+    border-bottom: 24px solid transparent;
+    border-right: 24px solid #455A64;
+    border-top: 24px solid transparent;
+    height: 0;
+    margin: 6px 0 0 20px;
+    width: 0;
+}
+
+.arrow-left2 {
+    background: #455A64;
+    height: 24px;
+    margin: 0 auto;
+    position: absolute;
+    right: 6px;
+    top: 18px;
+    width: 12px;
+}
+
+/* Active arrows */
+
+.dpad.active {
+    background-color: #303030;
+}
+
+.dpad.active .arrow-up {
+    border-bottom-color: #FFEB3B;
+}
+
+.dpad.active .arrow-up2 {
+    background-color: #FFEB3B;
+}
+
+.dpad.active .arrow-right {
+    border-left-color: #FFEB3B;
+}
+
+.dpad.active .arrow-right2 {
+    background-color: #FFEB3B;
+}
+
+.dpad.active .arrow-down {
+    border-top-color: #FFEB3B;
+}
+
+.dpad.active .arrow-down2 {
+    background-color: #FFEB3B;
+}
+
+.dpad.active .arrow-left {
+    border-right-color: #FFEB3B;
+}
+
+.dpad.active .arrow-left2 {
+    background-color: #FFEB3B;
+}
+</style>
+<script>var aspect = 1.75
+var $controller = $('#controller')
+
+function handleResize() {
+    var w = window.innerWidth, h = window.innerHeight
+
+    if (w / h > aspect) {
+        w = h * aspect
+        $controller.css('transform', 'scale(' + (h / 280) + ')')
+    }
+    else {
+        h = w / aspect
+        $controller.css('transform', 'scale(' + (w / 490) + ')')
+    }
+
+    $controller.css({
+        left: 0.5 * (window.innerWidth - w) + 'px',
+        top: 0.5 * (window.innerHeight - h) + 'px',
+    })
+}
+
+
+handleResize()
+window.addEventListener('resize', handleResize)
+window.addEventListener('orientationchange', handleResize)
+
+var $dpad_buttons = $('.dpad:not(.dpad-center)')
+
+$dpad_buttons
+.on('mousedown touchstart', function (event) {
+    // $dpad_buttons.removeClass('active')
+    $(this).addClass('active')
+})
+
+$('body')
+.on('mouseup touchend', function (event) {
+    $dpad_buttons.removeClass('active')
+    $other_buttons.removeClass('active')
+})</script>
+    </head>
+    <body>
+        <h1>RC Car</h1>
+
+        <!--Speed Settings-->
+        <div class="parent">
+            <div class="wrapper">
+            <input type="radio" name="speed-settings" id="option-1" value="slow">
+            <input type="radio" name="speed-settings" id="option-2" value="normal">
+            <input type="radio" name="speed-settings" id="option-3" value="fast">
+
+            <label for="option-1" class="option option-1">
+                <span>Slow</span>
+            </label>
+            <label for="option-2" class="option option-2">
+                <span>Normal</span>
+            </label>
+            <label for="option-3" class="option option-3">
+                <span>Fast</span>
+            </label>
+            </div>
+        </div>
+
+        <!--D-Pad-->
+        <div class="dpad-container">
+            <div class="dpad-backdrop"></div>
+            <div class="dpad dpad-up">
+                <div class="arrow-up"></div>
+                <div class="arrow-up2"></div>
+            </div>
+            <div class="dpad dpad-right">
+                <div class="arrow-right2"></div>
+                <div class="arrow-right"></div>
+            </div>
+            <div class="dpad dpad-down">
+                <div class="arrow-down2"></div>
+                <div class="arrow-down"></div>
+            </div>
+            <div class="dpad dpad-left">
+                <div class="arrow-left"></div>
+                <div class="arrow-left2"></div>
+            </div>
+            <div class="dpad dpad-center"></div>
+    </body>
+</html>
